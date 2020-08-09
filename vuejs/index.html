@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="index.css">
+    <script src="resources/vue.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+      <h1>{{ title }}</h1>
+
+      <input type="number" v-model="user_input">
+
+      <b></b>
+
+      <button v-on:click="findLowerPrimeNumber">Find lower prime number</button>
+
+      <div v-if="clicked">
+        <h2>Result: </h2>
+        <p>{{ output }}</p>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
