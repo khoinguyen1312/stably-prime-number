@@ -24,7 +24,12 @@ func findLowerPrimeNumber(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, _ := sieve.FindSmallerPrimeNumber(inputNumber)
+	result, error := sieve.FindSmallerPrimeNumber(inputNumber)
+
+	if error != nil {
+		http.Error(w, error.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	response := make(map[string]int)
 	response["result"] = result

@@ -2,6 +2,7 @@ package sieve
 
 import (
 	"math"
+	"errors"
 )
 
 func sieveOfEratosthenes(limit int) []int {
@@ -64,7 +65,11 @@ func findBiggestSegmentedSieve(left int, right int, primes []int) (int, bool) {
 	return -1, false
 }
 
-func FindSmallerPrimeNumber(input int) (int, bool) {
+func FindSmallerPrimeNumber(input int) (int, error) {
+	if (input <= 1) {
+		return -1, errors.New("Input should bigger than 1")
+	}
+
 	var step int = 100
 
 	right := input - 1
@@ -78,7 +83,7 @@ func FindSmallerPrimeNumber(input int) (int, bool) {
 		result, ok := findBiggestSegmentedSieve(left, right, primes)
 
 		if ok {
-			return result, true
+			return result, nil
 		}
 
 		if !ok && left == 0 {
@@ -88,5 +93,5 @@ func FindSmallerPrimeNumber(input int) (int, bool) {
 		right = left
 	}
 
-	return -1, false
+	return -1, errors.New("Unable to find lower prime number")
 }

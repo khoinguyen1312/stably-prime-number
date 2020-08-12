@@ -4,7 +4,9 @@ var app = new Vue({
         title: 'Finding Prime Number',
         user_input: '',
         output: '',
-        clicked: false
+        clicked: false,
+        error_message: '',
+        is_show_error_message: false
     },
     methods: {
         findLowerPrimeNumber: function() {
@@ -13,18 +15,19 @@ var app = new Vue({
             })
             .then(response => { 
                 if(response.ok){
-                    return response.json()    
-                } else{
-                    alert("Server returned " + response.status + " : " + response.statusText);
-                }                
+                    response.json().then(json => { 
+                        this.output = json['result']
+                        this.clicked = true
+                        this.is_show_error_message = false
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    }) 
+                } else {
+                    this.error_message = response.statusText
+                    this.is_show_error_message = true
+                }
             })
-            .then(response => {
-                this.output = response['result']
-                this.clicked = true
-            })
-            .catch(err => {
-                console.log(err);
-            });
 
             // axios
             //   .get('api/findLowerPrimeNumber/' + this.user_input)

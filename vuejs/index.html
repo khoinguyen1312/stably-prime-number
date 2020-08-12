@@ -18,6 +18,11 @@
         <h2>Result: </h2>
         <p>{{ output }}</p>
       </div>
+      
+      <div v-if="is_show_error_message">
+        <p>{{ error_message }}</p>
+      </div>
+      
     </div>
 
     <script src="resources/index.js"></script>
