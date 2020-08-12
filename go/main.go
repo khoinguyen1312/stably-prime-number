@@ -1,18 +1,52 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
+	"strconv"
+	"stably.khoinguyen1312.com/prime/sieve"
+	"github.com/gorilla/mux"
 )
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "dist/index.html")
 }
 
-func main() {
-	fs := http.FileServer(http.Dir("./dist"))
-	http.HandleFunc("/", indexHandler)
-	http.Handle("/resources/", fs)
+func findLowerPrimeNumber(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	input := vars["input"]
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	inputNumber, error := strconv.Atoi(input)
+	if error == nil {
+		http.Error(w, error.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	result, _ := sieve.FindSmallerPrimeNumber(inputNumber)
+
+	response := make(map[string]int)
+	response["result"] = result
+
+	jsonResponse, error := json.Marshal(response)
+
+	if error != nil {
+		http.Error(w, error.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonResponse)
+}
+
+func main() {
+	r := mux.NewRouter()
+
+	fs := http.FileServer(http.Dir("./dist"))
+
+	r.PathPrefix("/resources/").Handler(fs)
+	r.HandleFunc("/api/findLowerPrimeNumber/{input}", findLowerPrimeNumber).Methods("GET")
+	r.HandleFunc("/", indexHandler)
+
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
