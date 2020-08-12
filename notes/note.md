@@ -35,6 +35,6 @@ Extra credit:
   - [x] Docker for Vuejs
   - [x] Docker for Go Backend
 - [x] Host on <https://stably-prime-number.herokuapp.com/>
-- [ ] Send to David
-  - [ ] Ask if:
-    - [ ] Special case: when user's input is prime number (send demo first)
+~~- [ ] Send to David~~
+  ~~- [ ] Ask if:~~
+    ~~- [ ] Special case: when user's input is prime number (send demo first)~~
