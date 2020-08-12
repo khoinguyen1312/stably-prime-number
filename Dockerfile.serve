@@ -1,0 +1,8 @@
+# syntax = docker/dockerfile:1-experimental
+
+FROM --platform=${BUILDPLATFORM} golang:1.14.3-alpine
+WORKDIR /app
+COPY ./bin .
+COPY ./vuejs ./dist
+
+CMD ["./main"]

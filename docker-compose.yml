@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  webserver:
+    image: 'stably/prime-number:latest'
+    restart: always
+    ports:
+      - "8080:8080"
