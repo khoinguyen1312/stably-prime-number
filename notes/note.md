@@ -29,8 +29,8 @@ Extra credit:
 - [x] Simple UI vuejs
 - [x] Simple Go Service return message for VueJS
 - [x] Algorithm -> Go
-- [ ] Setup Unit Test
-- [ ] Setup Coverage -> Sonar
+- [x] Setup Unit Test
+- [x] Setup Coverage ~~-> Sonar~~
 - [x] Setup CI
   - [x] Docker for Vuejs
   - [x] Docker for Go Backend
