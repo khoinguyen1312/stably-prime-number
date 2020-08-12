@@ -18,7 +18,7 @@ func findLowerPrimeNumber(w http.ResponseWriter, r *http.Request) {
 	input := vars["input"]
 
 	inputNumber, error := strconv.Atoi(input)
-	if error == nil {
+	if error != nil {
 		http.Error(w, error.Error(), http.StatusInternalServerError)
 		return
 	}
