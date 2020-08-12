@@ -26,14 +26,14 @@ Extra credit:
 ## Tasks
 
 - [x] repo for coding
-- [ ] Simple UI vuejs
-- [ ] Simple Go Service return message for VueJS
+- [x] Simple UI vuejs
+- [x] Simple Go Service return message for VueJS
 - [ ] Algorithm -> Go
 - [ ] Setup Unit Test
 - [ ] Setup Coverage -> Sonar
-- [ ] Setup CI
-  - [ ] Docker for Vuejs
-  - [ ] Docker for Go Backend
+- [x] Setup CI
+  - [x] Docker for Vuejs
+  - [x] Docker for Go Backend
 - [ ] Host on stably.khoinguyen1312.com
 - [ ] Send to David
   - [ ] Ask if:
