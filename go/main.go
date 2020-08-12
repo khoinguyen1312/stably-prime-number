@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -48,5 +49,9 @@ func main() {
 	r.HandleFunc("/api/findLowerPrimeNumber/{input}", findLowerPrimeNumber).Methods("GET")
 	r.HandleFunc("/", indexHandler)
 
-	log.Fatal(http.ListenAndServe(":8080", r))
+	port := os.Getenv("PORT") // Heroku provides the port to bind to
+	if port == "" {
+		port = "8080"
+	}
+	log.Fatal(http.ListenAndServe(":"+port, r))
 }

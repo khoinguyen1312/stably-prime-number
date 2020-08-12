@@ -28,13 +28,13 @@ Extra credit:
 - [x] repo for coding
 - [x] Simple UI vuejs
 - [x] Simple Go Service return message for VueJS
-- [ ] Algorithm -> Go
+- [x] Algorithm -> Go
 - [ ] Setup Unit Test
 - [ ] Setup Coverage -> Sonar
 - [x] Setup CI
   - [x] Docker for Vuejs
   - [x] Docker for Go Backend
-- [ ] Host on stably.khoinguyen1312.com
+- [x] Host on <https://stably-prime-number.herokuapp.com/>
 - [ ] Send to David
   - [ ] Ask if:
     - [ ] Special case: when user's input is prime number (send demo first)

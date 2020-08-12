@@ -4,5 +4,7 @@ services:
   webserver:
     image: 'stably/prime-number:latest'
     restart: always
+    environment: 
+      - PORT=8080
     ports:
       - "8080:8080"
