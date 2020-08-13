@@ -44,8 +44,12 @@ func findBiggestPrimeInSegmentedSieve(left int, right int, initialPrimes []int) 
 		isPrimeMarks[i] = true
 	}
 
-	for i := 0; i < len(initialPrimes) && float64(initialPrimes[i]) <= math.Sqrt(float64(right)); i++ {
+	var biggestPrimeAbleToProcess int = int(math.Sqrt(float64(right)))
+
+	for i := 0; i < len(initialPrimes) && initialPrimes[i] <= biggestPrimeAbleToProcess; i++ {
+
 		var procesingPrime = initialPrimes[i]
+
 		var firstMultipleOfProcessingPrime int = (left / procesingPrime) * procesingPrime
 
 		if firstMultipleOfProcessingPrime < left {
@@ -53,6 +57,7 @@ func findBiggestPrimeInSegmentedSieve(left int, right int, initialPrimes []int) 
 		}
 
 		for j := firstMultipleOfProcessingPrime; j <= right; j += procesingPrime {
+
 			if j != procesingPrime {
 				isPrimeMarks[j-left] = false
 			}
