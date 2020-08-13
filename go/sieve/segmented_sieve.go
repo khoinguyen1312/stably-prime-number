@@ -1,31 +1,31 @@
 package sieve
 
 import (
-	"math"
 	"errors"
+	"math"
 )
 
-func sieveOfEratosthenes(limit int) []int {
-	var marks []bool = make([]bool, limit+1)
+func findPrimesBySieveOfEratosthenes(limit int) []int {
+	var isPrimeMarks []bool = make([]bool, limit+1)
 	var primes []int = make([]int, 0, 10)
 
-	for i := 0; i < len(marks); i++ {
-		marks[i] = true
+	for i := 0; i < len(isPrimeMarks); i++ {
+		isPrimeMarks[i] = true
 	}
 
-	marks[0] = false
-	marks[1] = false
+	isPrimeMarks[0] = false
+	isPrimeMarks[1] = false
 
 	for i := 2; i*i <= limit; i++ {
-		if marks[i] == true {
+		if isPrimeMarks[i] == true {
 			for j := i * i; j <= limit; j += i {
-				marks[j] = false
+				isPrimeMarks[j] = false
 			}
 		}
 	}
 
 	for i := 2; i <= limit; i++ {
-		if marks[i] == true {
+		if isPrimeMarks[i] == true {
 			primes = append(primes, i)
 		}
 	}
@@ -33,31 +33,34 @@ func sieveOfEratosthenes(limit int) []int {
 	return primes
 }
 
-func findBiggestSegmentedSieve(left int, right int, primes []int) (int, bool) {
+func findBiggestPrimeInSegmentedSieve(left int, right int, initialPrimes []int) (int, bool) {
 	if left == 1 {
 		left = left + 1
 	}
 
-	var marks []bool = make([]bool, right-left+1)
+	var isPrimeMarks []bool = make([]bool, right-left+1)
 
-	for i := 0; i < len(marks); i++ {
-		marks[i] = true
+	for i := 0; i < len(isPrimeMarks); i++ {
+		isPrimeMarks[i] = true
 	}
 
-	for i := 0; i < len(primes) && float64(primes[i]) <= math.Sqrt(float64(right)); i++ {
-		var base int = (left / primes[i]) * primes[i]
-		if base < left {
-			base += primes[i]
+	for i := 0; i < len(initialPrimes) && float64(initialPrimes[i]) <= math.Sqrt(float64(right)); i++ {
+		var procesingPrime = initialPrimes[i]
+		var firstMultipleOfProcessingPrime int = (left / procesingPrime) * procesingPrime
+
+		if firstMultipleOfProcessingPrime < left {
+			firstMultipleOfProcessingPrime += procesingPrime
 		}
-		for j := base; j <= right; j += primes[i] {
-			if j != primes[i] {
-				marks[j-left] = false
+
+		for j := firstMultipleOfProcessingPrime; j <= right; j += procesingPrime {
+			if j != procesingPrime {
+				isPrimeMarks[j-left] = false
 			}
 		}
 	}
 
 	for i := right; i >= left; i-- {
-		if marks[i-left] == true {
+		if isPrimeMarks[i-left] == true {
 			return i, true
 		}
 	}
@@ -65,8 +68,9 @@ func findBiggestSegmentedSieve(left int, right int, primes []int) (int, bool) {
 	return -1, false
 }
 
+// FindSmallerPrimeNumber help to find first smaller number of the input
 func FindSmallerPrimeNumber(input int) (int, error) {
-	if (input <= 1) {
+	if input <= 1 {
 		return -1, errors.New("Input should bigger than 1")
 	}
 
@@ -79,8 +83,8 @@ func FindSmallerPrimeNumber(input int) (int, error) {
 		if left < 0 {
 			left = 0
 		}
-		primes := sieveOfEratosthenes(int(math.Sqrt(float64(right))))
-		result, ok := findBiggestSegmentedSieve(left, right, primes)
+		primes := findPrimesBySieveOfEratosthenes(int(math.Sqrt(float64(right))))
+		result, ok := findBiggestPrimeInSegmentedSieve(left, right, primes)
 
 		if ok {
 			return result, nil
