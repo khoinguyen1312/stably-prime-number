@@ -88,8 +88,8 @@ func FindSmallerPrimeNumber(input int) (int, error) {
 		if left < 0 {
 			left = 0
 		}
-		primes := findPrimesBySieveOfEratosthenes(int(math.Sqrt(float64(right))))
-		result, ok := findBiggestPrimeInSegmentedSieve(left, right, primes)
+		initialPrimes := findPrimesBySieveOfEratosthenes(int(math.Sqrt(float64(right))))
+		result, ok := findBiggestPrimeInSegmentedSieve(left, right, initialPrimes)
 
 		if ok {
 			return result, nil
