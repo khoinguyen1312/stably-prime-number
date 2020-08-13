@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DOCKER_BUILDKIT=1
+
 PLATFORM=$1
 TARGET_IMAGE_NAME=$2
 
